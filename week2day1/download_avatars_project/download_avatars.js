@@ -11,20 +11,23 @@ function getRepoContributors(repoOwner, repoName, cb) {
     headers: {
     'User-Agent': 'request',
     Authorization: GITHUB_TOKEN
-
   }
 };
 
   request(options, function(err, res, body) {
-    cb(err, body);
+    var data = JSON.parse(body);
+    cb(err, data);
   });
 
 }
 
 
 getRepoContributors("jquery", "jquery", function(err, result) {
+  result.forEach(function(user) {
+    console.log(user.avatar_url);
+  })
   console.log("Errors:", err);
-  console.log("Result:", result);
+  // console.log("Result:", result);
 });
 
 
